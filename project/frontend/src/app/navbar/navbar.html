@@ -1,0 +1,95 @@
+<mat-toolbar color="primary" class="navbar">
+    <a routerLink="/home" class="logo-container">
+        <img src="logo.png" alt="Logo" class="logo" />
+        <span class="brand">Stuff & Things</span>
+    </a>
+
+    <button mat-icon-button class="mobile-toggle" (click)="toggleMobileMenu()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <div class="desktop-menu">
+        <a mat-button routerLink="/home" routerLinkActive="active" (click)="closeMobileMenu()">Főoldal</a>
+        <a mat-button routerLink="/products" routerLinkActive="active" (click)="closeMobileMenu()">Termékek</a>
+        <a mat-button routerLink="/contact" routerLinkActive="active" (click)="closeMobileMenu()">Kapcsolat</a>
+
+        <ng-container *ngIf="!(isLoggedIn$ | async)">
+            <button mat-button [matMenuTriggerFor]="loginMenu" [matMenuTriggerRestoreFocus]="false">
+                Bejelentkezés ⮟
+            </button>
+            <mat-menu #loginMenu="matMenu" [hasBackdrop]="true">
+                <ng-template matMenuContent>
+                    <form class="login-form" (submit)="onLogin($event)" (click)="$event.stopPropagation()" (keydown.tab)="$event.stopPropagation()">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Felhasználónév</mat-label>
+                            <input matInput name="username" [(ngModel)]="loginData.username" required />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <mat-label>Jelszó</mat-label>
+                            <input matInput type="password" name="password" [(ngModel)]="loginData.password" required />
+                        </mat-form-field>
+
+                        <mat-checkbox name="remember" [(ngModel)]="loginData.remember">Adatok megjegyzése</mat-checkbox>
+
+                        <button mat-raised-button color="primary" type="submit" class="login-btn">Bejelentkezés</button>
+
+                        <div class="register-text">
+                            Még nincs fiókod? <a routerLink="/register">Regisztrálj!</a>
+                        </div>
+                    </form>
+                </ng-template>
+            </mat-menu>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn$ | async">
+            <button
+                mat-button
+                [matMenuTriggerFor]="userMenu"
+                [matMenuTriggerRestoreFocus]="false"
+                style="color: #FFABCA;"
+            >
+                Hello, {{ username$ | async }}! ⮟
+            </button>
+
+            <mat-menu #userMenu="matMenu" [hasBackdrop]="true">
+                <ng-template matMenuContent>
+                    <button mat-menu-item (click)="logout()">Kijelentkezés</button>
+                </ng-template>
+            </mat-menu>
+        </ng-container>
+    </div>
+</mat-toolbar>
+
+<div class="mobile-menu" *ngIf="mobileMenuOpen">
+    <a routerLink="/home" (click)="closeMobileMenu()">Főoldal</a>
+    <a routerLink="/products" (click)="closeMobileMenu()">Termékek</a>
+    <a routerLink="/contact" (click)="closeMobileMenu()">Kapcsolat</a>
+
+    <ng-container *ngIf="!(isLoggedIn$ | async)">
+        <form class="login-form" (submit)="onLogin($event)" (click)="$event.stopPropagation()">
+            <mat-form-field appearance="fill">
+                <mat-label>Felhasználónév</mat-label>
+                <input matInput name="username" [(ngModel)]="loginData.username" required />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Jelszó</mat-label>
+                <input matInput type="password" name="password" [(ngModel)]="loginData.password" required />
+            </mat-form-field>
+
+            <mat-checkbox name="remember" [(ngModel)]="loginData.remember">Adatok megjegyzése</mat-checkbox>
+
+            <button mat-raised-button color="primary" type="submit" class="w-full">Bejelentkezés</button>
+
+            <div class="register-text">
+                Még nincs fiókod? <a routerLink="/register" (click)="closeMobileMenu()">Regisztrálj!</a>
+            </div>
+        </form>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn$ | async">
+        <p style="margin: 0 0 1rem;">Hello, {{ username$ | async }}!</p>
+        <button mat-button (click)="logout(); closeMobileMenu()">Kijelentkezés</button>
+    </ng-container>
+</div>

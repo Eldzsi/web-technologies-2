@@ -1,0 +1,79 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+
+    height: 100vh;
+}
+
+
+mat-card {
+    width: 400px;
+    padding: 1rem 2rem 2rem 2rem;
+    background-color: rgb(20, 20, 20);
+    color: white;
+}
+
+
+mat-card-title {
+    margin-bottom: 0.5em;
+    color: #FFABCA;
+}
+
+
+mat-form-field {
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block;
+    margin-bottom: 1em; 
+}
+
+
+mat-form-field, mat-card, form {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+
+mat-error {
+    display: block;
+    font-size: 12px;
+    white-space: normal !important;
+    overflow: visible !important;
+    word-break: break-word;
+    max-width: 100%;
+    line-height: 1.3em;
+    margin-bottom: 1em;
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+
+.submit-button {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+
+.error-text {
+    color: #ff5252;
+    margin: 1rem 0;
+}
+
+
+.register-btn {
+    background-color: #b06882 !important;
+    color: white !important;
+    transition: background-color 0.3s ease;
+    margin-top: 12px;
+}
+
+
+.register-btn:hover {
+    background-color: #d48ca6 !important;
+}

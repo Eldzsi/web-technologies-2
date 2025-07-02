@@ -1,0 +1,103 @@
+<div class="products-error-container">
+    <ng-container *ngIf="!isLoggedIn">
+        <mat-card class="products-card">
+            <mat-card-header>
+                <mat-card-title>Hiba</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>A terméklista eléréséhez bejelentkezés szükséges!</p>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn">
+        <mat-card class="products-card">
+            <mat-card-header>
+                <mat-card-title>Termékek</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+
+                <p>Összes találat: {{ totalProducts }}</p>
+
+                <div class="filters" fxLayout="row wrap" fxLayoutGap="12px">
+                    <mat-form-field appearance="fill" class="filter-field">
+                        <mat-label>Keresés</mat-label>
+                        <input matInput [(ngModel)]="search" (input)="currentPage = 1; loadProducts()" placeholder="Keresés..." />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="filter-field">
+                        <mat-label>Kategória</mat-label>
+                        <mat-select [(ngModel)]="category" (selectionChange)="currentPage = 1; loadProducts()">
+                            <mat-option value="">Mind</mat-option>
+                            <mat-option value="CPU">CPU</mat-option>
+                            <mat-option value="GPU">GPU</mat-option>
+                            <mat-option value="RAM">RAM</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="filter-field">
+                        <mat-label>Márka</mat-label>
+                        <mat-select [(ngModel)]="brand" (selectionChange)="currentPage = 1; loadProducts()">
+                            <mat-option value="">Mind</mat-option>
+                            <mat-option *ngFor="let b of brands" [value]="b">{{ b }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="filter-field">
+                        <mat-label>Rendezés</mat-label>
+                        <mat-select [(ngModel)]="sort" (selectionChange)="currentPage = 1; loadProducts()">
+                            <mat-option value="">Alapértelmezett</mat-option>
+                            <mat-option value="price_asc">Ár ↑</mat-option>
+                            <mat-option value="price_desc">Ár ↓</mat-option>
+                            <mat-option value="name_asc">Név A-Z</mat-option>
+                            <mat-option value="name_desc">Név Z-A</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="filter-field">
+                        <mat-label>Limit/oldal</mat-label>
+                        <mat-select [(ngModel)]="limit" (selectionChange)="currentPage = 1; loadProducts()">
+                            <mat-option [value]="5">5 db</mat-option>
+                            <mat-option [value]="10">10 db</mat-option>
+                            <mat-option [value]="15">15 db</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div style="text-align: right; margin-top: 1rem;">
+                    <button mat-raised-button class="new-product-btn" (click)="addProduct()">+ Új termék</button>
+                </div>
+
+                <div class="product-list">
+                    <mat-card class="product-card" *ngFor="let product of products">
+                        <mat-card-title class="product-name">{{ product.name }}</mat-card-title>
+                        <mat-card-content>
+                            <p><strong>Kategória:</strong> {{ product.category }}</p>
+                            <p><strong>Márka:</strong> {{ product.brand }}</p>
+                            <p><strong>Ár:</strong> {{ product.price | number }} Ft</p>
+                            <p class="product-description">Leírás: {{ product.description }}</p>
+                        </mat-card-content>
+
+                        <mat-card-actions>
+                            <button mat-stroked-button color="accent" style="color: #FFABCA;" (click)="editProduct(product)">Módosítás</button>
+                            <button mat-stroked-button color="warn" style="color: #FFABCA;" (click)="deleteProduct(product)">Törlés</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+
+                <div
+                    class="pagination"
+                    *ngIf="totalPages > 1"
+                    style="margin: 1rem 0; text-align: center; display: inline-flex; justify-content: center; align-items: center; gap: 8px;">
+                    <button mat-button [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">←</button>
+                    <span>{{ currentPage }}</span>
+                    <span>/</span>
+                    <span>{{ totalPages }}</span>
+                    <button mat-button [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">→</button>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</div>

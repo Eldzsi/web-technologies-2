@@ -1,0 +1,111 @@
+<div class="register-container">
+    <mat-card>
+        <mat-card-title>Regisztráció</mat-card-title>
+
+        <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Felhasználónév</mat-label>
+                <input
+                    matInput
+                    name="username"
+                    ngModel
+                    #username="ngModel"
+                    required
+                    minlength="3"
+                    maxlength="32"
+                    pattern="^[a-zA-Z0-9_]+$"
+                />
+                <mat-error *ngIf="submitted && username.errors?.['required']">
+                    Felhasználónév megadása kötelező!
+                </mat-error>
+                <mat-error *ngIf="submitted && username.errors?.['minlength']">
+                    A felhasználónév legalább 3 karakter hosszú legyen!
+                </mat-error>
+                <mat-error *ngIf="submitted && username.errors?.['maxlength']">
+                    A felhasználónév maximum 32 karakter hosszú legyen!
+                </mat-error>
+                <mat-error *ngIf="submitted && username.errors?.['pattern']">
+                    A felhasználónév csak betűt, számot és alulvonást (_) tartalmazhat!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Jelszó</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    name="password"
+                    ngModel
+                    #password="ngModel"
+                    required
+                    minlength="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$"
+                />
+                <mat-error *ngIf="submitted && password.errors?.['required']">
+                    Jelszó megadása kötelező!
+                </mat-error>
+                <mat-error *ngIf="submitted && password.errors?.['minlength']">
+                    A jelszó legalább 8 karakter hosszú legyen!
+                </mat-error>
+                <mat-error *ngIf="submitted && password.errors?.['pattern']">
+                    A jelszónak tartalmaznia kell kis- és nagybetűt, számot, valamint speciális karaktert!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Jelszó újra</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    name="password2"
+                    ngModel
+                    #password2="ngModel"
+                    required
+                    minlength="6"
+                />
+                <mat-error *ngIf="submitted">
+                    <ng-container *ngIf="password2.errors?.['required']; else passwordMismatch">
+                        Ismételd meg a jelszót!
+                    </ng-container>
+                    <ng-template #passwordMismatch>
+                        <ng-container *ngIf="password2.value !== password.value">
+                            A két jelszó nem egyezik!
+                        </ng-container>
+                    </ng-template>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>E-mail cím</mat-label>
+                <input
+                    matInput
+                    type="email"
+                    name="email"
+                    ngModel
+                    #email="ngModel"
+                    required
+                    email
+                />
+                <mat-error *ngIf="submitted && email.errors?.['required']">
+                    E-mail cím megadása kötelező!
+                </mat-error>
+                <mat-error *ngIf="submitted && email.errors?.['email']">
+                    Érvénytelen e-mail cím!
+                </mat-error>
+            </mat-form-field>
+
+            <mat-checkbox name="terms" ngModel #terms="ngModel" required>
+                Elfogadom az ÁSZF-et. *
+            </mat-checkbox>
+            <mat-error *ngIf="submitted && terms.errors?.['required']">
+                Az ÁSZF elfogadása kötelező!
+            </mat-error>
+
+            <mat-checkbox name="newsletter" ngModel>
+                Feliratkozom a hírlevélre. (opcionális)
+            </mat-checkbox>
+
+            <button mat-raised-button color="primary" type="submit" class="register-btn"> Regisztráció</button>
+        </form>
+    </mat-card>
+</div>

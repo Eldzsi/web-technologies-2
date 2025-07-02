@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/cdk": "^20.0.3",
+    "@angular/material": "^20.0.3"
+  }
+}

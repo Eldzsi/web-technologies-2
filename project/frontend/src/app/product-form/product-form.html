@@ -1,0 +1,35 @@
+<div class="form-container">
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Név</mat-label>
+        <input matInput [(ngModel)]="form.name" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Kategória</mat-label>
+        <mat-select [(ngModel)]="form.category" required>
+            <mat-option value="CPU">CPU</mat-option>
+            <mat-option value="GPU">GPU</mat-option>
+            <mat-option value="RAM">RAM</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Márka</mat-label>
+        <input matInput [(ngModel)]="form.brand" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Ár</mat-label>
+        <input matInput type="number" min="1" [(ngModel)]="form.price" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Leírás</mat-label>
+        <textarea matInput [(ngModel)]="form.description" rows="3"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+        <button mat-button (click)="cancel()">Mégse</button>
+        <button mat-raised-button color="primary" (click)="save()">Mentés</button>
+    </div>
+</div>

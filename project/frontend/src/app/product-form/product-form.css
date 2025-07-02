@@ -1,0 +1,14 @@
+.form-container {
+    max-width: 500px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(10, 10, 10);
+    box-shadow: 0 4px 10px rgb(85, 85, 17);
+}
+
+
+.full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+}

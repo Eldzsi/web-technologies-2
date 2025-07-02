@@ -1,0 +1,21 @@
+.footer-toolbar {
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    z-index: 999;
+    padding-top: 6px;
+
+    background: linear-gradient(
+        180deg,
+      #FFABCA 0%,
+      rgb(20, 20, 20) 15%
+    );
+}
+
+
+.footer-text {
+    font-size: 14px;
+    color: white;
+}
