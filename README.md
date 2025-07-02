@@ -9,14 +9,20 @@
 ### Backend:
 
 cd backend
+
 npm install: Függőségek telepítése.
+
 node server.js: Szerver elindítása.
+
 
 ### Frontend:
 
 cd frontend
+
 npm install: Függőségek telepítése.
+
 ng serve: Szerver elindítása.
+
 
 ### Weboldal elérése
 
